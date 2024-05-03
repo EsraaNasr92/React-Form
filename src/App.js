@@ -17,6 +17,7 @@ function App() {
   const [url, setURL] = useState('');
   const [selectOption, setSelectOption] = useState('');
   const [about, setAbout] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Create a ref for the file input
   const fileInputRef = useRef(null);
@@ -35,6 +36,7 @@ function App() {
       url,
       about
     );
+    setFormSubmitted(true);
   }
 
   const handleSubjectChange = (sub) => {
@@ -63,12 +65,16 @@ function App() {
     setURL("");
     setSelectOption("");
     setAbout("");
+    setFormSubmitted(false);
   }
 
   return (
-    <div className="w-full max-w-xs">
-      <h1 className='text-center'>Form inReact</h1>
-      <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+    <div className="w-full flex justify-center">
+      <div className='max-w-7xl'>
+      
+      {!formSubmitted && (
+        <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+        <h1 className='text-center text-3xl font-bold mb-8'>Fill out this form</h1>
         <div className='mb-4'>
           <label 
             className='block text-gray-700 text-sm font-bold mb-2' 
@@ -253,9 +259,9 @@ function App() {
           >
           </textarea>
         </div>  
-        <div className='buttons'>
+        <div className='buttons flex justify-center'>
           <button                 
-            className="flex items-center bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4"
+            className="flex items-center bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 focus:outline-none focus:bg-red-600 mr-4"
             onClick={handleRest}
           >
               Reset
@@ -268,6 +274,25 @@ function App() {
           </button>
         </div>
       </form>
+      )}
+
+        {formSubmitted && (
+          <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+            <h1 className='text-center text-3xl font-bold mb-8'>Here are your answers.</h1>
+            <p>First Name: {firstName}</p>
+            <p>Last Name: {lastName}</p>
+            <p>Email: {email}</p>
+            <p>Conatct: {contact}</p>
+            <p>Gender: {gender}</p>
+            <p>Subject: {Object.keys(subject).filter(key => subject[key]).join(', ')}</p>
+            <p>Resume: {resume.name}</p>
+            <p>URL: {url}</p>
+            <p>Choise: {selectOption}</p>
+            <p>About: {about}</p>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }

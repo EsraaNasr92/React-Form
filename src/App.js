@@ -53,7 +53,7 @@ function App() {
     setContact("");
     setGender("male");
     setSubject({
-      english: true,
+      english: false,
       maths: false,
       physics: false,
     });
@@ -178,7 +178,7 @@ function App() {
             id="englishSubject" 
             type='checkbox'
             checked= {subject.english === true}
-            onChange={(e) => handleSubjectChange("englsih")}/> English
+            onChange={(e) => handleSubjectChange("english")}/> English
             <input 
             className=''
             id="mathSubject" 
@@ -206,6 +206,7 @@ function App() {
                 placeholder="Enter Upload File"
                 required
                 ref={fileInputRef}
+                accept='.pdf, .docx, .doc'
             />
         </div>
         <div className='mb-4'>
@@ -279,14 +280,13 @@ function App() {
         {formSubmitted && (
           <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
             <h1 className='text-center text-3xl font-bold mb-8'>Here are your answers.</h1>
-            <p>First Name: {firstName}</p>
-            <p>Last Name: {lastName}</p>
+            <p>Full Name: {firstName} {lastName}</p>
             <p>Email: {email}</p>
             <p>Conatct: {contact}</p>
             <p>Gender: {gender}</p>
             <p>Subject: {Object.keys(subject).filter(key => subject[key]).join(', ')}</p>
             <p>Resume: {resume.name}</p>
-            <p>URL: {url}</p>
+            <p>URL: <a href={url}>{url}</a> </p>
             <p>Choise: {selectOption}</p>
             <p>About: {about}</p>
           </div>
